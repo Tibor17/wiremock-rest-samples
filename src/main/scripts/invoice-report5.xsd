@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="documentData" type="documentDataType"/>
+  <xs:complexType name="invoiceAddresseeType">
+    <xs:sequence>
+      <xs:element type="invoiceCompanyAddresseeType" name="companyData"/>
+      <xs:element type="invoiceCompanyAddressType" name="contact"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="positionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:decimal" name="singleOrderNettPrice" use="required"/>
+        <xs:attribute type="xs:int" name="ordersCount" use="required"/>
+        <xs:attribute type="xs:decimal" name="totalNettPrice" use="required"/>
+        <xs:attribute type="xs:decimal" name="vat" use="required"/>
+        <xs:attribute type="xs:decimal" name="totalTaxPrice" use="required"/>
+        <xs:attribute type="xs:decimal" name="totalGrossPrice" use="required"/>
+        <xs:attribute type="xs:string" name="currencyCode" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="addressType" abstract="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="buildingName" minOccurs="0" nillable="true"/>
+      <xs:element type="xs:short" name="postalCode"/>
+      <xs:element type="xs:string" name="district" minOccurs="0" nillable="true"/>
+      <xs:element type="xs:string" name="city"/>
+      <xs:element type="xs:string" name="state" minOccurs="0" nillable="true"/>
+      <xs:element type="xs:string" name="country"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="POBoxAddressType">
+    <xs:annotation>
+      <xs:documentation>PO Box address.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="addressType">
+        <xs:sequence>
+          <xs:element type="xs:string" name="postBox"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PlainAddressType">
+    <xs:annotation>
+      <xs:documentation>Plain address.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="addressType">
+        <xs:sequence>
+          <xs:element type="xs:string" name="street"/>
+          <xs:element type="xs:string" name="houseNo"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="contractType">
+    <xs:sequence>
+      <xs:element type="paymentType" name="payment"/>
+      <xs:element type="invoiceAddresseeType" name="invoiceAddressee"/>
+      <xs:element type="invoiceBodyType" name="invoiceBody"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="contractNumber" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="paymentMethodType">
+    <xs:sequence>
+      <xs:element type="methodEnum" name="method"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="invoiceCompanyAddressType">
+    <xs:sequence>
+      <xs:element type="addressType" name="address"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentType">
+    <xs:sequence>
+      <xs:element type="paymentMethodType" name="paymentMethods"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="documentDataType">
+    <xs:sequence>
+      <xs:element type="documentType" name="document"/>
+      <xs:element type="customerType" name="customer"/>
+      <xs:element type="contractType" name="contract"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="documentType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="customizationToken" nillable="true"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerType">
+    <xs:sequence>
+      <xs:element type="taxIdentificationType" name="companyData"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="customerNumber" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="taxIdentificationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="taxNumber"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="invoiceCompanyAddresseeType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="additionalName1" nillable="true" minOccurs="0"/>
+      <xs:element type="xs:string" name="additionalName2" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="methodEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="SEPA"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="invoiceBodyType">
+    <xs:sequence>
+      <xs:element name="orderedItems" type="orderedItemsType"/>
+      <xs:element name="totalPriceNett" type="xs:decimal"/>
+      <xs:element name="vats" type="vatPricesType"/>
+      <xs:element name="totalPrice" type="xs:decimal"/>
+      <xs:element name="billingPeriodFrom" type="xs:date"/>
+      <xs:element name="billingPeriodTo" type="xs:date"/>
+      <xs:element name="taxIdentificationNumber" type="xs:string"/>
+      <xs:element name="invoiceNumber" type="xs:string"/>
+      <xs:element name="invoiceIssueDate" type="xs:date"/>
+      <xs:element name="paymentDueDate" type="xs:date"/>
+      <xs:element name="currencyCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="vatPricesType">
+    <xs:sequence>
+      <xs:element name="vat" type="vatPriceType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="vatPriceType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string"/>
+      <xs:element name="price" type="xs:decimal"/>
+      <xs:element name="currencyCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="orderedItemsType">
+    <xs:sequence>
+      <xs:element name="orderedItem" type="orderedItemType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="orderedItemType">
+    <xs:annotation>
+      <xs:documentation>Products, invoice items and their prices.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="position" type="positionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:int" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+</xs:schema>
