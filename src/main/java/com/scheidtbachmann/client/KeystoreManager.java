@@ -1,6 +1,3 @@
-/**
- * Copyright (c) 2014 Scheidt&Bachmann. All Rights Reserved.
- */
 package com.scheidtbachmann.client;
 
 import javax.net.ssl.KeyManager;

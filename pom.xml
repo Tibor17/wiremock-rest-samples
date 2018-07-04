@@ -168,13 +168,13 @@
                 <configuration>
                     <storetype>JKS</storetype>
                     <keystore>${project.build.directory}/keystore.jks</keystore>
-                    <dname>cn=www.scheidt-bachmann.sk, ou=Development, L=Zilina, ST=EU, o=Scheidt &amp; Bachmann Slovensko s.r.o., c=Slovakia</dname>
+                    <dname>cn=www.github.com, ou=Development, L=Zilina, ST=EU, o=tibor17, c=Slovakia</dname>
                     <keypass>test rest</keypass>
                     <storepass>test rest</storepass>
                     <alias>wildfly</alias>
                     <validity>1</validity>
                     <keyalg>RSA</keyalg>
-                    <keysize>4096</keysize>
+                    <keysize>1024</keysize>
                 </configuration>
             </plugin>
             <plugin>

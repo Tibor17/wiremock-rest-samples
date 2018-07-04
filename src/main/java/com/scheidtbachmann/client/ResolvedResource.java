@@ -1,15 +1,8 @@
-/**
- * Copyright (c) 2014 Scheidt & Bachmann, Inc.. All Rights Reserved.
- */
 package com.scheidtbachmann.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * @author <a href="mailto:digana.tibor@scheidt-bachmann.sk">digana.tibor (Tibor Digana)</a>
- * @since 1.0
- */
 public final class ResolvedResource {
     private final URL address;
     private final String user;
