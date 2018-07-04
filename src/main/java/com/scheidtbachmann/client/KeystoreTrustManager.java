@@ -25,7 +25,7 @@ final class KeystoreTrustManager implements X509TrustManager {
 
     }
 
-    KeystoreTrustManager(final InputStream inputStream, final char[] password) throws GeneralSecurityException, IOException {
+    private KeystoreTrustManager(final InputStream inputStream, final char[] password) throws GeneralSecurityException, IOException {
         try (final InputStream is = inputStream) {
             KeyStore ks = KeyStore.getInstance("JKS");
             ks.load(is, password);

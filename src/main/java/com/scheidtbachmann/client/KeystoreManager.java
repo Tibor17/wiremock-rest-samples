@@ -21,7 +21,7 @@ final class KeystoreManager implements X509KeyManager {
         this(new FileInputStream(keyStore), password);
     }
 
-    KeystoreManager(final InputStream inputStream, final char[] password) throws GeneralSecurityException, IOException {
+    private KeystoreManager(final InputStream inputStream, final char[] password) throws GeneralSecurityException, IOException {
         try (final InputStream is = inputStream) {
             KeyStore ks = KeyStore.getInstance("JKS");
             ks.load(is, password);
@@ -64,5 +64,4 @@ final class KeystoreManager implements X509KeyManager {
     public String chooseServerAlias(String arg0, Principal[] arg1, Socket arg2) {
         return pkixKeyManager.chooseServerAlias(arg0, arg1, arg2);
     }
-
 }
