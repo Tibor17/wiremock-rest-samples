@@ -28,3 +28,8 @@ alternatively CSV:
 curl --insecure -H "Content-Type: application/xml" -H "Accept-Language: de" -w "time_total: %{time_total}" -d @D:\projects\jasper-invoice\src\main\scripts\invoice-report5.xml -X POST https://10.46.26.20:8443/reportws/rest/reportExecutions/tenants/default/reports/invoicing/main/001_invoice?outputFormat=csv
 ```
 
+### References
+
+[Example with JAX-RS 2.0 RESTEasy Client](https://howtodoinjava.com/resteasy/jax-rs-2-0-resteasy-3-0-2-final-client-api-example/)
+
+
